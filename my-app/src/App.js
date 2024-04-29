@@ -1,11 +1,19 @@
 import React from 'react';
-import Register from './pages/Register'; // Adjust the path based on your file structure
+// import Home from './pages/Home';
+// import Register from './pages/Register';
+import Login from './pages/login'
+import './style.css';
 
 function App() {
   return (
-    <Register/>
+    <div>
+      <Login />
+      {/* <Register/> */}
+      {/* <Home/> */}
+    </div>
   );
 }
 
 export default App;
+
 
