@@ -1,21 +1,42 @@
-import React from "react"
-function login(){
-return(
-<div className="formcontainer">
-    <div className="formwrapper">
-<span className="logo">LAMA CHAT</span>
-<span className="title">Register</span>
+import React, { useState } from "react";
+import { useNavigate,Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
-<form action="">
-<input type="email"  placeholder="Email"/>
-<input type="password" placeholder="Password" />
-<button>sign in</button>
- </form>
- <p>dont  have an account ? Register here</p>
-    </div>
-</div>
+function Login() {
+    const [err, setErr] = useState(false);
+    const navigate = useNavigate();
 
-)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const email = e.target[0].value;
+        const password = e.target[1].value;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+            setErr(true);
+        }
+    };
+
+    return (
+        <div className="formcontainer">
+            <div className="formwrapper">
+                <span className="logo">CONNECTIFY</span>
+                <span className="title">Login</span>
+
+                <form onSubmit={handleSubmit}>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <button type="submit">Sign in</button>
+                    {err && <span>Something went wrong</span>}
+                </form>
+                <p>Don't have an account? <Link to="/register">Register</Link> here</p>
+            </div>
+        </div>
+    );
 }
 
-export default login;
+export default Login;

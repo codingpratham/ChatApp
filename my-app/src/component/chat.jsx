@@ -1,10 +1,11 @@
 // Chat.js
-import React from 'react';
+import React, { useContext } from 'react';
 import Cam from '../img/video-camera.png';
 import Add from '../img/add-friend.png';
 import More from '../img/more.png';
 import Messages from './messages';
 import Input from './input';
+import { ChatContext } from '../context/ChatContext';
 
 const Chat = ({ toggleSidebar }) => {
   const handleClick = () => {
@@ -12,20 +13,21 @@ const Chat = ({ toggleSidebar }) => {
     toggleSidebar(); // Ensure toggleSidebar is called
   };
 
+  const { data } = useContext(ChatContext);
+
   return (
     <div className='chat'>
       <div className="chatinfo">
-        <span id="name">jane</span>
+        <span id="name">{data.user?.displayName}</span>
         <div className="chaticons">
           <img src={Cam} alt="" />
           <img src={Add} alt="" />
           <img src={More} alt="" />
-          {/* Toggle button added here */}
           <button className="toggle-button" onClick={handleClick}>Chats</button>
         </div>
       </div>
-      <Messages/>
-      <Input/>
+      <Messages />
+      <Input />
     </div>
   );
 };
